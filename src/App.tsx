@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import CardView from "./CardView/CardView";
+import CardDeck from "./lib/CardDeck";
+import Card from "./lib/Card";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const [deckCards, setCards] = useState<Card[]>([]);
+
+const getCards = () => {
+  const cardDeck = new CardDeck();
+  console.log(cardDeck);
+  const cards: Card[] = cardDeck.getCards(5);
+  console.log(cards);
+  //setCards(deckCards.concat(cards.map(card => <CardView rank={card.rank} suit={card.suit}/>));
+  setCards(cards);
+};
+
+return (
+  <div className="App">
+    {deckCards.map(card => <CardView rank={card.rank} suit={card.suit}/>)}
+    <button onClick={getCards}>Раздать карты</button>
+  </div>
+);
+
 }
 
 export default App;
